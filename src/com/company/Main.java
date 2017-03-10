@@ -4,34 +4,36 @@ import java.util.*;
 
 public class Main {
 
-    private void add(int a, int b) {
+    private int add(int a, int b) {
 
         int add = a + b;
-        System.out.println("В результате суммирования получилось = " + add);
+        return add;
     }
 
-    private void del(int a, int b) {
+    private int subtraction(int a, int b) {
 
-        int del = a - b;
-        System.out.println("В результате вычитания получилось = " + del);
+        int subtraction = a - b;
+        return subtraction;
+
     }
 
-    private void mnog(int a, int b) {
+    private int multiplication(int a, int b) {
 
-        int mnog = a * b;
-        System.out.println("В результате умножения получилось = " + mnog);
+        int multiplication = a * b;
+        return multiplication;
     }
 
-    private void dilen(int a, int b) {
+    private float segmentation(int a, int b) {
 
-        float dilen = (float) a / b;
-        System.out.println("В результате деления получилось = " + dilen);
+        float segmentation = (float) a / b;
+        return segmentation;
+
     }
 
     private void str(String data) {
 
-        String s = "";
-        String m = "";
+        String second = "";
+        String first = "";
         int index = 0;
 
         char str[] = data.toCharArray();
@@ -48,56 +50,55 @@ public class Main {
                 case '8':
                 case '9':
                 case '0':
-                    s += data.substring(0 + i, 1 + i);
+                    second += str[i];
                     break;
                 case ' ':
                     break;
                 case '+': {
                     if (index != 0) {
-                        i = data.length() - 1;
-                        m = "";
+                        first = "";
+                        break;
                     }
-                    m = s;
-                    s = "";
+                    first = second;
+                    second = "";
                     index = 1;
                 }
                 break;
                 case '-': {
                     if (index != 0) {
-                        i = data.length() - 1;
-                        m = "";
+                        first = "";
+                        break;
                     }
-                    m = s;
-                    s = "";
+                    first = second;
+                    second = "";
                     index = 2;
                 }
                 break;
                 case '*': {
                     if (index != 0) {
-                        i = data.length() - 1;
-                        m = "";
+                        first = "";
+                        break;
                     }
-                    m = s;
-                    s = "";
+                    first = second;
+                    second = "";
                     index = 3;
                 }
                 break;
                 case '/': {
                     if (index != 0) {
-                        i = data.length() - 1;
-                        m = "";
+                        first = "";
+                        break;
                     }
-                    m = s;
-                    s = "";
+                    first = second;
+                    second = "";
                     index = 4;
                 }
                 break;
                 default: {
 
-                    i = data.length() - 1;
-                    s = "";
-                    m = "";
-
+                    second = "";
+                    first = "";
+                    break;
                 }
 
 
@@ -105,32 +106,38 @@ public class Main {
 
         }
 
-        //Обрати внимание правильное ли отрицание?
-        if (!s.equals("") && !m.equals("") && index != 0) {
+
+        if (second.equals("") || first.equals("") || index == 0) {
+            System.out.println("The entered data isn`t correct");
+        }
+
+        else {
             int a, b;
-            a = Integer.parseInt(m);
-            b = Integer.parseInt(s);
+            a = Integer.parseInt(first);
+            b = Integer.parseInt(second);
             Main result = new Main();
             switch (index) {
                 case 1:
-                    result.add(a, b);
+                    int add = result.add(a, b);
+                    System.out.println("In result of add will be = " + add);
                     break;
                 case 2:
-                    result.del(a, b);
+                    int subtraction = result.subtraction(a, b);
+                    System.out.println("In result of subtraction will be = " + subtraction);
                     break;
                 case 3:
-                    result.mnog(a, b);
+                    int multiplication = result.multiplication(a, b);
+                    System.out.println("In result of multiplication will be = " + multiplication);
                     break;
                 case 4:
-                    result.dilen(a, b);
+                    float segmentation = result.segmentation(a, b);
+                    System.out.println("In result of segmentation will be = " + segmentation);
                     break;
                 default:
                     break;
             }
-        } else {
-            System.out.println("Введеные даннные не верны");
-        }
 
+        }
 
 
     }
@@ -140,7 +147,7 @@ public class Main {
         Scanner in = new Scanner(System.in);
 
         Main task = new Main();
-        System.out.println("Введите выражение");
+        System.out.println("Enter the expression");
         String data = in.nextLine();
         task.str(data);
 
