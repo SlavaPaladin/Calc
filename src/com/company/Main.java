@@ -3,30 +3,32 @@ package com.company;
 import java.util.*;
 
 public class Main {
+    enum oparator {add, sub, mult, div, error}
+
 
     private int add(int a, int b) {
 
-        int add = a + b;
-        return add;
+        int result = a + b;
+        return result;
     }
 
     private int subtraction(int a, int b) {
 
-        int subtraction = a - b;
-        return subtraction;
+        int result = a - b;
+        return result;
 
     }
 
     private int multiplication(int a, int b) {
 
-        int multiplication = a * b;
-        return multiplication;
+        int result = a * b;
+        return result;
     }
 
-    private float segmentation(int a, int b) {
+    private float division(int a, int b) {
 
-        float segmentation = (float) a / b;
-        return segmentation;
+        float result = (float) a / b;
+        return result;
 
     }
 
@@ -34,8 +36,8 @@ public class Main {
 
         String second = "";
         String first = "";
-        int index = 0;
-
+        oparator index = oparator.error;
+        boolean status = true;
         char str[] = data.toCharArray();
         for (int i = 0; i < data.length(); i++) {
 
@@ -55,49 +57,48 @@ public class Main {
                 case ' ':
                     break;
                 case '+': {
-                    if (index != 0) {
-                        first = "";
+                    if (index != oparator.error) {
+                        status = false;
                         break;
                     }
                     first = second;
                     second = "";
-                    index = 1;
+                    index = oparator.add;
                 }
                 break;
                 case '-': {
-                    if (index != 0) {
-                        first = "";
+                    if (index != oparator.error) {
+                        status = false;
                         break;
                     }
                     first = second;
                     second = "";
-                    index = 2;
+                    index = oparator.sub;
                 }
                 break;
                 case '*': {
-                    if (index != 0) {
-                        first = "";
+                    if (index != oparator.error) {
+                        status = false;
                         break;
                     }
                     first = second;
                     second = "";
-                    index = 3;
+                    index = oparator.mult;
                 }
                 break;
                 case '/': {
-                    if (index != 0) {
-                        first = "";
+                    if (index != oparator.error) {
+                        status = false;
                         break;
                     }
                     first = second;
                     second = "";
-                    index = 4;
+                    index = oparator.div;
                 }
                 break;
                 default: {
 
-                    second = "";
-                    first = "";
+                    status = false;
                     break;
                 }
 
@@ -107,31 +108,29 @@ public class Main {
         }
 
 
-        if (second.equals("") || first.equals("") || index == 0) {
+        if (status == false || index == oparator.error) {
             System.out.println("The entered data isn`t correct");
-        }
-
-        else {
+        } else {
             int a, b;
             a = Integer.parseInt(first);
             b = Integer.parseInt(second);
             Main result = new Main();
             switch (index) {
-                case 1:
+                case add:
                     int add = result.add(a, b);
                     System.out.println("In result of add will be = " + add);
                     break;
-                case 2:
+                case sub:
                     int subtraction = result.subtraction(a, b);
                     System.out.println("In result of subtraction will be = " + subtraction);
                     break;
-                case 3:
+                case mult:
                     int multiplication = result.multiplication(a, b);
                     System.out.println("In result of multiplication will be = " + multiplication);
                     break;
-                case 4:
-                    float segmentation = result.segmentation(a, b);
-                    System.out.println("In result of segmentation will be = " + segmentation);
+                case div:
+                    float division = result.division(a, b);
+                    System.out.println("In result of division will be = " + division);
                     break;
                 default:
                     break;
