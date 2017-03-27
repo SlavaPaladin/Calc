@@ -2,45 +2,40 @@ package com.company;
 
 import java.util.*;
 
-public class Main {
-    enum oparator {add, sub, mult, div, error}
-
+public class Calc {
+    enum operation {add, sub, mult, div, error}
 
     private int add(int a, int b) {
 
-        int result = a + b;
-        return result;
+        return a + b;
     }
 
     private int subtraction(int a, int b) {
 
-        int result = a - b;
-        return result;
-
+        return a - b;
     }
 
     private int multiplication(int a, int b) {
 
-        int result = a * b;
-        return result;
+        return a * b;
     }
 
     private float division(int a, int b) {
 
-        float result = (float) a / b;
-        return result;
-
+        return (float) a / b;
     }
 
     private void str(String data) {
 
         String second = "";
         String first = "";
-        oparator index = oparator.error;
+        operation index = operation.error;
         boolean status = true;
         char str[] = data.toCharArray();
         for (int i = 0; i < data.length(); i++) {
-
+            if (!status) {
+                break;
+            }
             switch (str[i]) {
                 case '1':
                 case '2':
@@ -57,49 +52,48 @@ public class Main {
                 case ' ':
                     break;
                 case '+': {
-                    if (index != oparator.error) {
+                    if (index != operation.error) {
                         status = false;
                         break;
                     }
                     first = second;
                     second = "";
-                    index = oparator.add;
+                    index = operation.add;
                 }
                 break;
                 case '-': {
-                    if (index != oparator.error) {
+                    if (index != operation.error) {
                         status = false;
                         break;
                     }
                     first = second;
                     second = "";
-                    index = oparator.sub;
+                    index = operation.sub;
                 }
                 break;
                 case '*': {
-                    if (index != oparator.error) {
+                    if (index != operation.error) {
                         status = false;
                         break;
                     }
                     first = second;
                     second = "";
-                    index = oparator.mult;
+                    index = operation.mult;
                 }
                 break;
                 case '/': {
-                    if (index != oparator.error) {
+                    if (index != operation.error) {
                         status = false;
                         break;
                     }
                     first = second;
                     second = "";
-                    index = oparator.div;
+                    index = operation.div;
                 }
                 break;
                 default: {
 
                     status = false;
-                    break;
                 }
 
 
@@ -108,32 +102,27 @@ public class Main {
         }
 
 
-        if (status == false || index == oparator.error) {
+        if (!status || index == operation.error) {
             System.out.println("The entered data isn`t correct");
         } else {
             int a, b;
             a = Integer.parseInt(first);
             b = Integer.parseInt(second);
-            Main result = new Main();
+            Calc result = new Calc();
             switch (index) {
                 case add:
-                    int add = result.add(a, b);
-                    System.out.println("In result of add will be = " + add);
+                    System.out.println("In result of add will be = " + result.add());
                     break;
                 case sub:
-                    int subtraction = result.subtraction(a, b);
-                    System.out.println("In result of subtraction will be = " + subtraction);
+                    System.out.println("In result of subtraction will be = " + result.subtraction(a, b));
                     break;
                 case mult:
-                    int multiplication = result.multiplication(a, b);
-                    System.out.println("In result of multiplication will be = " + multiplication);
+                    System.out.println("In result of multiplication will be = " + result.multiplication(a, b));
                     break;
                 case div:
-                    float division = result.division(a, b);
-                    System.out.println("In result of division will be = " + division);
+                    System.out.println("In result of division will be = " + result.division(a, b));
                     break;
                 default:
-                    break;
             }
 
         }
@@ -145,7 +134,7 @@ public class Main {
 
         Scanner in = new Scanner(System.in);
 
-        Main task = new Main();
+        Calc task = new Calc();
         System.out.println("Enter the expression");
         String data = in.nextLine();
         task.str(data);
